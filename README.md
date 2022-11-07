@@ -31,7 +31,7 @@ and comes pre-packaged with the extension
 `flask scikit-image tensorflow pillow`
 
 A requirements file for easy setup is included and can be found 
-[here](flask-server/requirements.txt).
+[here](Remote-Communication-Module-3D-Slicer/flask-server/requirements.txt).
 
 # The Main Module's Features
 
