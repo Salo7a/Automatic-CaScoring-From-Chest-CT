@@ -55,14 +55,14 @@ the results. These sections are:
 
 ## Input Volume Select
 
-![Input Volume Select](Images/Volume%20Select.png)
+![Input Volume Select](Remote-Communication-Module-3D-Slicer/Images/Volume%20Select.png)
 
 In this section, we simply select which one of the loaded 
 volumes will we do the processing on
 
 ## General Settings
 
-![General Settings](Images/General%20Settings.png)
+![General Settings](Remote-Communication-Module-3D-Slicer/Images/General%20Settings.png)
 
 In this section, we select the main parameters for our processing:
 
@@ -164,7 +164,7 @@ We choose to use a separate process instead of a second thread for a couple of r
    
 ## Local Processing
 
-![Local Processing Settings](Images/Local%20Processing.png)
+![Local Processing Settings](Remote-Communication-Module-3D-Slicer/Images/Local%20Processing.png)
 
 These settings are only available when using the local mode
 
@@ -181,7 +181,7 @@ Path to the folder containing the TensorFlow model used in detecting calcificati
 
 ## Online Processing
 
-![Online Processing Settings](Images/Online%20Processing.png)
+![Online Processing Settings](Remote-Communication-Module-3D-Slicer/Images/Online%20Processing.png)
 
 These settings are only available when using the online mode.
 
@@ -202,14 +202,14 @@ such as age and sex, could be used as parameters to help more in diagnosis.
 
 ## Progress
 
-![Progress Information](Images/Progress.png)
+![Progress Information](Remote-Communication-Module-3D-Slicer/Images/Progress.png)
 
 Shows the progress of the operations, what is currently in progress, what has been completed and
 some time statistics.
 
 ## Results
 
-![Results Information](Images/Results.png)
+![Results Information](Remote-Communication-Module-3D-Slicer/Images/Results.png)
 
 Shows the results of any calculation made, currently show the volume of the detected calcifications,
 also shows the total time taken to process the data. 
