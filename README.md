@@ -1,5 +1,59 @@
 # Coronary Artery Disease Scoring Suit For 3D Slicer
 
+## Abstract
+Coronary Artery Disease (CAD) is a major cause
+of death for men, women and people of all racial groups. In 2018,
+Egypt had 163,171 deaths from CAD, about 29% of the total
+deaths that year. According to WHO Egypt is ranked 15 on the
+world`s rate of death from CAD with 271.9 deaths per 100,000
+of population [1]. These numbers indicate the seriousness of the
+disease that Egypt is facing. Detecting this disease is time
+dependent and human error prone, Experienced Radiologists
+examine a patient`s CT and calculate the volume of
+Calcifications found inside the patient’s heart. In this Paper, we
+propose a framework of Automated Deep learning Algorithms
+for the Quantification of the Calcification Volume from Low-
+dose Chest CT. Using two consecutive networks, the first is a
+Segmentation Network its main purpose is to identify our
+Region of Interest (ROI) which is the heart, each patient’s
+Specific ROI is then passed to the second network which is the
+Calcification Quantifier. Both networks Return a Segmented
+output. The Final output is then processed to roughly quantify
+the patient’s Calcification Volume which will help in his\her
+Therapy. The Results achieved by the Networks were assessed
+using the Dice Coefficient metric. Heart Segmentation output
+reached 90% Score. To reach out to the medical and
+scientific communities we then added this framework to a well-
+known Open-Source Application 3D Slicer, which will elaborate
+its usage and promote the research done in this area.
+
+
+## Modelling 
+The Architecture contains 4 down
+sampling steps with 2 consecutive Convolutions. All
+convolutions used a RelU Activation function with filters that
+are doubled at each convolution. The Training was done on a
+Single GPU NVIDIA GTX 1080 TI with 11 GB Memory,
+Python 3.6.7, CUDA 11.4 and libcudnn 8.2. Model Training
+continued for about 100 epochs before reaching a plateau
+where the Loss did not converge any more. The Data was
+passed to the model after a series of Pre-Processing
+Functions, Rescaling the data to the 0-1 Range, Applying
+Resizing Kernels to fit the Input Scan Volumes into the
+Model we resampled each volume to (112, 112, 112) and
+Applied Different Augmentation Techniques, Random Axis
+Flipping (First and Second Axes), Random Gamma
+Corrections and Random Rotations in the Axial Direction of
+±10 Degrees. The Loss Function used was Dice Loss and
+Optimization done by Adam Optimizer with 0.0001 learning,
+we applied a Decay callback on the Learning rate to decrease
+the learning rate on plateau. Our U-Net implementation was
+done in TensorFlow 2.5 using the Keras API.
+![UNet.png](Models%2FSegmentation%2FUNet.png)
+
+
+## A Remote Communication Module for 3D Slicer
+
 A loadable module for 3D Slicer Platform written 
 in python, with a flask server for easy deployment 
 on cloud computing services.
@@ -7,14 +61,16 @@ on cloud computing services.
 ## Intro
 
 
-Our main goal is to provide a tool that automates heart scans (coronary calcium scans) and calculate the Agatston score, which reflects the total area of calcium deposits and the density of the calcium, using a simple and user friendly interface in a short amount of time, the score could then be used with other health information to assess the overall health and risk of heart disease, this could be helpful in both research and clincal settings, the first step was to calculate the volume of the calcified plaques in the Coronary Artery.
+Our main goal was to provide a tool that could automatically quantify calcium volume of
+the calcified plaques in the Coronary Artery.
 
 This volume, also known as calcium score, is one of the risk factors used to
 predict the likelihood of Coronary Artery Disease Events occurring in the next few years,
-this process is currently being done manually by Radiologists.
+this process is currently being done manually by Radiologists, This takes
+a long time, and the results are subjective.
 
 This is what motivated us to make this extension, as way to help make this process
-better, more streamlined, and make it easier to combine it with other data to better predict heart diseases as there is currently no widespread free tool that helps on this front.
+better and more streamlined as there is currently no widespread tool that helps on this front.
 
 ## Requirements
 
@@ -55,14 +111,14 @@ the results. These sections are:
 
 ## Input Volume Select
 
-![Input Volume Select](Remote-Communication-Module-3D-Slicer/Images/Volume%20Select.png)
+![Input Volume Select](Remote-Communication-Module-3D-Slicer/Images/Volume Select.png)
 
 In this section, we simply select which one of the loaded 
 volumes will we do the processing on
 
 ## General Settings
 
-![General Settings](Remote-Communication-Module-3D-Slicer/Images/General%20Settings.png)
+![General Settings](Remote-Communication-Module-3D-Slicer/Images/General Settings.png)
 
 In this section, we select the main parameters for our processing:
 
@@ -164,7 +220,7 @@ We choose to use a separate process instead of a second thread for a couple of r
    
 ## Local Processing
 
-![Local Processing Settings](Remote-Communication-Module-3D-Slicer/Images/Local%20Processing.png)
+![Local Processing Settings](Remote-Communication-Module-3D-Slicer/Images/Local Processing.png)
 
 These settings are only available when using the local mode
 
@@ -181,7 +237,7 @@ Path to the folder containing the TensorFlow model used in detecting calcificati
 
 ## Online Processing
 
-![Online Processing Settings](Remote-Communication-Module-3D-Slicer/Images/Online%20Processing.png)
+![Online Processing Settings](Remote-Communication-Module-3D-Slicer/Images/Online Processing.png)
 
 These settings are only available when using the online mode.
 
@@ -213,11 +269,3 @@ some time statistics.
 
 Shows the results of any calculation made, currently show the volume of the detected calcifications,
 also shows the total time taken to process the data. 
-
-## Future Work
-
-* Identify and segemnt the coronary artery into parts.
-* Calculate the calcium denstiy.
-* Calculate the Agatston score.
-* Make exporting the results easier.
-* Add more heart-related tests & ability to input patient health information, and using all of this data to better predict -and hopefully prevent- heart diseases.
